@@ -13,7 +13,7 @@ st.title('Orders Report')
 st.info('Classification of **360 Blue** orders, highlighting **Alaya** properties.')
 
 with st.sidebar:
-    ral_file = st.file_uploader('360 Blue Partner Site RAL', 'xlsx')
+    ral_file = st.file_uploader('360 Blue Partner Site RAL', 'csv')
     ap_file  = st.file_uploader('Alaya Properties',          'csv')
 
 
