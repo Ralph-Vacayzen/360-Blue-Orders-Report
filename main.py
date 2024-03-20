@@ -18,7 +18,7 @@ with st.sidebar:
 
 
 if ral_file is not None and ap_file is not None:
-    ral = pd.read_excel(ral_file)
+    ral = pd.read_csv(ral_file)
     ap  = pd.read_csv(ap_file)
 
     ral['Address'] = ral.apply(functions.CombineAddress1and2, axis=1)
