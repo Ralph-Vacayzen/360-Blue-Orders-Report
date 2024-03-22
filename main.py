@@ -66,4 +66,4 @@ if ral_file is not None and ap_file is not None:
         result.insert(3,'Address',result.pop('Address'))
         result = result.sort_values(by='RentalAgreementID')
 
-        st.dataframe(result, use_container_width=True, hide_index=True)
+        st.download_button(label='DOWNLOAD', data=result.to_csv(index=False), file_name=f'orders_{str(startDate)}_{str(endDate)}.csv', mime='csv', use_container_width=True, type='primary')
