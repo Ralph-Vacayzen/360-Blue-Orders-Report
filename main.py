@@ -15,11 +15,21 @@ st.info('Classification of **360 Blue** orders, highlighting **Alaya** propertie
 with st.sidebar:
     ral_file = st.file_uploader('360 Blue Partner Site RAL', 'csv')
     ap_file  = st.file_uploader('Alaya Properties',          'csv')
+    da_file = st.file_uploader('360 Blue Partner Site Dispatch Activities', 'csv')
 
 
-if ral_file is not None and ap_file is not None:
+if ral_file is not None and ap_file is not None and da_file is not None:
     ral = pd.read_csv(ral_file)
     ap  = pd.read_csv(ap_file)
+    da  = pd.read_csv(da_file)
+
+    da.Dispatch           = pd.to_datetime(da.Dispatch).dt.date
+    da['Completion Time'] = pd.to_datetime(da['Completion Time'])
+    da                    = da.sort_values(by='Completion Time', ascending=False)
+    da                    = da.drop_duplicates(subset=da.columns[:-1], keep='last')
+    da                    = da.sort_values(by='Dispatch', ascending=False)
+
+    st.download_button('DOWNLOAD DISPATCH ACTIVITY REPORT', data=da.to_csv(index=False), file_name='activity.csv', mime='csv', use_container_width=True, type='primary')
 
     ral['Address'] = ral.apply(functions.CombineAddress1and2, axis=1)
     ral            = ral.dropna(subset='Address')
@@ -66,4 +76,4 @@ if ral_file is not None and ap_file is not None:
         result.insert(3,'Address',result.pop('Address'))
         result = result.sort_values(by='RentalAgreementID')
 
-        st.download_button(label='DOWNLOAD', data=result.to_csv(index=False), file_name=f'orders_{str(startDate)}_{str(endDate)}.csv', mime='csv', use_container_width=True, type='primary')
+        st.download_button(label='DOWNLOAD ORDERS REPORT', data=result.to_csv(index=False), file_name=f'orders_{str(startDate)}_{str(endDate)}.csv', mime='csv', use_container_width=True, type='primary')
