@@ -14,7 +14,7 @@ st.info('Classification of **360 Blue** orders, highlighting **Alaya** propertie
 
 with st.sidebar:
     ral_file = st.file_uploader('360 Blue Partner Site RAL', 'csv')
-    ap_file  = st.file_uploader('Alaya Properties',          'csv')
+    ap_file  = st.file_uploader('Alaya_List',          'csv')
     da_file = st.file_uploader('360 Blue Partner Site Dispatch Activities', 'csv')
 
 
